@@ -466,9 +466,6 @@ async function update_state(keyword) {
 
 $(document).ready(function () {
 
-
-    
-
     canvas_init();
     update(ctx, board, grid, empty_color, filled_color);
     // mouseHandler(canvas, ctx, maze, index, board, grid, empty_color, filled_color);
