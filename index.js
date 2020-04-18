@@ -140,9 +140,16 @@ function timer_begin() {
         if (ms == 0) {
             if (s <= 0) { // the timer expired, so move to the "retry" state
 
+                // version 1
+                /*
                 audio.src = playlist["outro"];
                 audio.volume = 0.7;
                 audio.play();
+                */
+
+                // version 2
+                audio.play();
+
 
                 game_on = false;
                 clearInterval(timer_loop);
@@ -324,8 +331,14 @@ function mouseHandler() {
                     console.log("clear!!");
                     if (level == max_level) { // the current level is the last level, so move to the "retry" state
 
+                        // version 1
+                        /*
                         audio.src = playlist["outro"];
                         audio.volume = 0.7;
+                        audio.play();
+                        */
+
+                        // version 2
                         audio.play();
 
                         all_clear = true;
@@ -462,9 +475,20 @@ $(document).ready(function () {
     mouseHandler();
     $("#state1").on("click", function() {
 
+        // version 1
+        /*
         audio.src = playlist["outro"];
         audio.volume = 0.0;
         audio.play();
+        */
+
+        // version 2
+       audio.src = playlist["outro"];
+       audio.volume = 0.7;
+       audio.play();
+       audio.pause();
+
+
 
 
         //audio.volume = 0.0;
