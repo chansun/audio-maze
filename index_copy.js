@@ -30,6 +30,7 @@
 
 5. 비스쿨, 깃헙 코드 정리, 레쥬메 정리, 김지현 그분 이메일 보내기 
 
+6. PSIM 거기 데이타베이스,파이썬 ,sqlite, 알고리즘 이런거 공부해보자.
 
 */
 
@@ -132,7 +133,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 60;
+    let s = 10;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -267,12 +268,6 @@ function getMousePos(ev) {
     return [ev.clientY-rect.top+1, ev.clientX-rect.left+1];
 }
 
-function getTouchPos(ev) { 
-    let rect = canvas.getBoundingClientRect();
-    return [ev.touches[0].clientY-rect.top+1, ev.touches[0].clientX-rect.left+1];
-}
-
-
 function note_th_update() {
     if (index == 0) {
         note_th = 4;
@@ -325,14 +320,10 @@ function mouseHandler() {
     let index_temp;
 
  
-
-    
     //canvas.addEventListener("mousemove", function(ev) {
     $("#root").on("mousemove touchstart", function(ev) {
         if (game_on) {
             coor = getMousePos(ev); // coor = [y, x]
-            console.log(`Y: ${coor[0]}`);
-            console.log(`X: ${coor[1]}`);
             index_temp = tracker(coor, maze, index, canvas, grid, board);
             if (index_temp > index) { // Correct Path
                 if (maze[level].length == index_temp) { // Cleared the current level;
@@ -473,52 +464,6 @@ async function update_state(keyword) {
 
 
 $(document).ready(function () {
-
-    // window.addEventListener("scroll", preventMotion, false);
-
-
-    // $("#state2").on("touchmove", function(ev) {
-    //     ev.preventDefault();
-        
-    //     console.log("=========");
-    //     console.log(ev);
-    //     console.log(ev.screenX);
-    //     console.log(ev.clientX);
-    //     console.log(ev.clientY);
-    // });
-
-    /*
-    document.getElementById("state2").addEventListener("touchmove", function(ev) {
-        console.log("MOOOVE");
-        console.log(ev.screenX);
-        console.log(ev.clientX);
-        console.log(ev.clientY);
-    });*/
-
-
-
-
-
-    document.getElementById("state2").addEventListener("touchmove",function(ev) {
-        // Cache the client X/Y coordinates
-
-        synth.triggerAttackRelease("C4", "10n");
-
-        console.log("===========");
-        let temp = getTouchPos(ev);
-        console.log(temp);
-        console.log("===========");
-        // clientX = e.touches[0].clientX;
-        // clientY = e.touches[0].clientY;
-        // console.log("===========");
-        // console.log(`clientY: ${clientY}`);
-        // console.log(`clientX: ${clientX}`);
-        // console.log("===========");
-
-    }, false);
-      
-
-    
 
     canvas_init();
     update(ctx, board, grid, empty_color, filled_color);
