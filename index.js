@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 60;
+    let s = 15;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -463,8 +463,10 @@ $(document).ready(function () {
     $("#state1").on("click", function() {
 
         audio.src = playlist["outro"];
-        audio.volume = 0.7;
+        audio.volume = 0.0;
         audio.play();
+
+
         //audio.volume = 0.0;
         //audio.pause();
 
