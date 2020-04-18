@@ -18,6 +18,13 @@
 
 
 /*
+터치방법:
+https://stackoverflow.com/questions/13510999/when-to-use-touchmove-vs-mousemove
+https://stackoverflow.com/questions/43936084/how-to-make-mousemove-event-working-for-touchscreen-with-touchmove
+
+*/
+
+/*
 
 모바일까지 끗내고, 데스크탑 여러 브라우저에서 테스팅, 모바일에서 아이폰 갤럭시 테스팅. 코드/파일 깃헙에 정리해서 올리고 publish하기.
 
@@ -107,7 +114,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 90;
+    let s = 60;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -280,7 +287,12 @@ function tracker(coor, maze, index, canvas, grid, board) {
 function mouseHandler() {
     let coor;
     let index_temp;
-    canvas.addEventListener("mousemove", function(ev) {
+
+ 
+
+    
+    //canvas.addEventListener("mousemove", function(ev) {
+    $("#root").on("mousemove touchstart", function(ev) {
         if (game_on) {
             coor = getMousePos(ev); // coor = [y, x]
             index_temp = tracker(coor, maze, index, canvas, grid, board);
@@ -341,6 +353,7 @@ function mouseHandler() {
             update(ctx, board, grid, empty_color, filled_color); 
         };
     });
+    
 };
 
 function canvas_init() {
