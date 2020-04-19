@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 15;
+    let s = 60;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -495,10 +495,28 @@ $(document).ready(function () {
         console.log(ev.clientY);
     });*/
 
+    document.getElementById("body").addEventListener("touchstart", function(e) {
+
+        e.preventDefault();
+
+        speechSynthesis.speak(voice_make("Test"));
+
+
+    });
+
+
+    document.getElementById("body").addEventListener("touchmove", function(e) {
+
+            e.preventDefault();
+
+            speechSynthesis.speak(voice_make("Test"));
+ 
+    
+        });
 
 
 
-
+    /*
     document.getElementById("state2").addEventListener("touchmove", function(ev) {
     //$("body").on("touchmove", function(ev) {
         // Cache the client X/Y coordinates
@@ -519,6 +537,7 @@ $(document).ready(function () {
         // console.log("===========");
 
     }, false);
+    */
       
 
     
