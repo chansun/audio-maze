@@ -37,7 +37,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 90;
+    let s = 55;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -195,8 +195,8 @@ function tracker(coor, maze, index, canvas, grid, board) {
     if ((coor[0] >= maze[level][index][0]*(canvas.height/grid) && coor[0] < ((maze[level][index][0])+1)*(canvas.height/grid)) && (coor[1] >= maze[level][index][1]*(canvas.width/grid) && coor[1] < ((maze[level][index][1])+1)*(canvas.width/grid))) {
         board[maze[level][index][0]][maze[level][index][1]] = 1;
 
-        //note_th_update();
-        //synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
+        note_th_update();
+        synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
 
         index = index + 1;
         if (maze[level].length == index) {
