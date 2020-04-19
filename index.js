@@ -499,7 +499,8 @@ $(document).ready(function () {
 
 
 
-    document.getElementById("state2").addEventListener("touchmove",function(ev) {
+    document.getElementById("state2").addEventListener("touchmove", function(ev) {
+    //$("body").on("touchmove", function(ev) {
         // Cache the client X/Y coordinates
 
         ev.preventDefault();

@@ -86,6 +86,14 @@
                 #root {
                     width: 300px;
                     height: 300px;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -khtml-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    outline: none;
+                    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
                 }
                 #state1 {
                     font-size: 70px;
@@ -99,7 +107,7 @@
 
         </style>
     </head>
-    <body>
+    <body id="body">
         <!-- Start, Retry -->
         <div class="center_pos transition" id="state1">     
             Start
