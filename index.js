@@ -456,11 +456,22 @@ $(document).ready(function () {
         })
     });
 
+
     $("#state1").on("click", async () => {
         await Tone.start();
         console.log('audio is ready');
         synth = new Tone.Synth().toMaster();
     });
+
+
+    // Only update, to see if synth never works on mobile. (But it should, once user interaction is received.)
+    document.getElementById("#state1").addEventListener("touchstart",  async () => {
+        await Tone.start();
+        console.log('audio is ready');
+        synth = new Tone.Synth().toMaster();
+        synth.triggerAttackRelease("C4", "100n");
+    }, { passive: false });
+
 
 
     
