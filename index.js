@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 14;
+    let s = 18;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -324,15 +324,26 @@ function mouseHandler() {
     let coor;
     let index_temp;
 
- 
+    canvas.addEventListener("touchstart", function(ev) {
+        ev.preventDefault();
+        let temp = getTouchPos(ev);
+        console.log(`temp: ${temp}`);
+        speechSynthesis.speak(voice_make("start"));
+    });
+    canvas.addEventListener("touchmove", function(ev) {
+        ev.preventDefault();
+        let temp = getTouchPos(ev);
+        console.log(`temp: ${temp}`);
+        speechSynthesis.speak(voice_make("move"));
+    });
+
 
     
-    //canvas.addEventListener("mousemove", function(ev) {
-    $("#root").on("mousemove touchstart", function(ev) {
+    canvas.addEventListener("mousemove", function(ev) {
+    //$("#root").on("mousemove touchstart", function(ev) {
         if (game_on) {
             coor = getMousePos(ev); // coor = [y, x]
-            console.log(`Y: ${coor[0]}`);
-            console.log(`X: ${coor[1]}`);
+            console.log(`coor: ${coor}`);
             index_temp = tracker(coor, maze, index, canvas, grid, board);
             if (index_temp > index) { // Correct Path
                 if (maze[level].length == index_temp) { // Cleared the current level;
@@ -495,7 +506,8 @@ $(document).ready(function () {
         console.log(ev.clientY);
     });*/
 
-
+    // This one
+    /*
     document.getElementById("state2").addEventListener("touchstart", function(e) {
         e.preventDefault();
         //let temp = getTouchPos(e);
@@ -514,7 +526,7 @@ $(document).ready(function () {
         //synth.triggerAttackRelease("C4", "10n");
         speechSynthesis.speak(voice_make("Test"));    
     });
-    
+    */
 
 
 
