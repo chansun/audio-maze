@@ -495,6 +495,25 @@ $(document).ready(function () {
         console.log(ev.clientY);
     });*/
 
+
+    document.getElementById("state2").addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        //let temp = getTouchPos(e);
+        //console.log(temp);
+        //console.log("===========");
+        //synth.triggerAttackRelease("C4", "10n");
+        speechSynthesis.speak(voice_make("Test"));
+    });
+
+
+    document.getElementById("state2").addEventListener("touchmove", function(e) {
+        e.preventDefault();
+        //let temp = getTouchPos(e);
+        //console.log(temp);
+        //console.log("===========");
+        //synth.triggerAttackRelease("C4", "10n");
+        speechSynthesis.speak(voice_make("Test"));    
+    });
     
 
 
@@ -570,24 +589,7 @@ $(document).ready(function () {
         //play a middle 'C' for the duration of an 8th note
         // synth.triggerAttackRelease("C4", "10n");
         // music start
-        document.getElementById("state2").addEventListener("touchstart", function(e) {
-            e.preventDefault();
-            //let temp = getTouchPos(e);
-            //console.log(temp);
-            //console.log("===========");
-            synth.triggerAttackRelease("C4", "10n");
-            //speechSynthesis.speak(voice_make("Test"));
-        });
-    
-    
-        document.getElementById("state2").addEventListener("touchmove", function(e) {
-            e.preventDefault();
-            //let temp = getTouchPos(e);
-            //console.log(temp);
-            //console.log("===========");
-            synth.triggerAttackRelease("C4", "10n");
-            //speechSynthesis.speak(voice_make("Test"));    
-        });
+        
 
 
 
