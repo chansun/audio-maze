@@ -217,6 +217,7 @@ function tracker(coor, maze, index, canvas, grid, board) {
 
 
 function touch_motion(ev) {
+    ev.preventDefault();
     let coor;
     let index_temp;
         if (game_on) {
@@ -292,9 +293,9 @@ function touch_motion(ev) {
 // function mouseHandler(canvas, ctx, maze, index, board, grid, empty_color, filled_color) {
 function mouseHandler() {
     
-    canvas.addEventListener("touchstart", touch_motion);
-    canvas.addEventListener("touchmove", touch_motion);
-    canvas.addEventListener("touchend", touch_motion);
+    canvas.addEventListener("touchstart", touch_motion, { passive: false });
+    canvas.addEventListener("touchmove", touch_motion, { passive: false });
+    canvas.addEventListener("touchend", touch_motion, { passive: false });
 
     
 };
