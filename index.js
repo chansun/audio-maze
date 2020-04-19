@@ -37,7 +37,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 44;
+    let s = 15;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -53,7 +53,7 @@ function timer_begin() {
                 clearInterval(timer_loop);
                 response = update_state("state1");
                 response.then(function(result) {
-                    console.log(result);
+                    //console.log(result);
                     index = 0;
                     level = 1
                     $("#level").html(level);
@@ -195,8 +195,8 @@ function tracker(coor, maze, index, canvas, grid, board) {
     if ((coor[0] >= maze[level][index][0]*(canvas.height/grid) && coor[0] < ((maze[level][index][0])+1)*(canvas.height/grid)) && (coor[1] >= maze[level][index][1]*(canvas.width/grid) && coor[1] < ((maze[level][index][1])+1)*(canvas.width/grid))) {
         board[maze[level][index][0]][maze[level][index][1]] = 1;
 
-        // note_th_update();
-        // synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
+        note_th_update();
+        synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
 
         index = index + 1;
         if (maze[level].length == index) {
@@ -223,7 +223,7 @@ function touch_motion(ev) {
         if (game_on) {
             coor = getTouchPos(ev); // coor = [y, x]
             //speechSynthesis.speak(voice_make("start"));
-            console.log(`coor: ${coor}`);
+            //console.log(`coor: ${coor}`);
             index_temp = tracker(coor, maze, index, canvas, grid, board);
             if (index_temp > index) { // Correct Path
                 if (maze[level].length == index_temp) { // Cleared the current level;
