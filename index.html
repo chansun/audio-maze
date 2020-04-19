@@ -80,12 +80,18 @@
             }
 
             @media screen and (max-width: 420px) and (max-height: 820px) {
+
+                body {
+                    touch-action: none;
+                }
+
                 #state2 {
                     width: 300px;
                 }
                 #root {
                     width: 300px;
                     height: 300px;
+                    
                     -webkit-touch-callout: none;
                     -webkit-user-select: none;
                     -khtml-user-select: none;
