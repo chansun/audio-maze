@@ -195,8 +195,9 @@ function tracker(coor, maze, index, canvas, grid, board) {
     if ((coor[0] >= maze[level][index][0]*(canvas.height/grid) && coor[0] < ((maze[level][index][0])+1)*(canvas.height/grid)) && (coor[1] >= maze[level][index][1]*(canvas.width/grid) && coor[1] < ((maze[level][index][1])+1)*(canvas.width/grid))) {
         board[maze[level][index][0]][maze[level][index][1]] = 1;
 
-        note_th_update();
-        synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
+        // test
+        //note_th_update();
+        //synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
 
         index = index + 1;
         if (maze[level].length == index) {
@@ -218,6 +219,10 @@ function tracker(coor, maze, index, canvas, grid, board) {
 
 function touch_motion(ev) {
     ev.preventDefault();
+    
+    // test
+    synth.triggerAttackRelease("C4", "100n");
+
     let coor;
     let index_temp;
         if (game_on) {
