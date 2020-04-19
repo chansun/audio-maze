@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Kanit&display=swap" rel="stylesheet">
         <style>
             body {
@@ -67,6 +68,8 @@
             }
             #root {
                 border-radius: 5px;
+                width: 500px;
+                height: 500px;
             }
             footer {
                 font-size: 12px;
@@ -75,6 +78,25 @@
                 top: 95%;
                 transform: translate(-50%, -50%);
             }
+
+            @media screen and (max-width: 420px) and (max-height: 820px) {
+                #state2 {
+                    width: 300px;
+                }
+                #root {
+                    width: 300px;
+                    height: 300px;
+                }
+                #state1 {
+                    font-size: 70px;
+                }
+                .horizontal {
+                    font-size: 30px;
+                }
+
+            }
+
+
         </style>
     </head>
     <body>
@@ -85,10 +107,11 @@
         <!-- Maze -->
         <div class="center_pos transition" id="state2">
             
-                <div class="horizontal left">Level <span id="level">1</span></div>
-                <div class="horizontal right" id="timer"></div>
+            <div class="horizontal left">Level <span id="level">1</span></div>
+            <div class="horizontal right" id="timer"></div>
             
-            <canvas id="root" width="500" height="500"></canvas>
+            <!-- <canvas id="root" width="500" height="500"></canvas> -->
+            <canvas id="root"></canvas>
         </div>
         <!-- <footer> The University of North Carolina - Chapel Hill</footer> -->
         <script src="./node_modules/jquery/dist/jquery.js" type="text/javascript"></script>

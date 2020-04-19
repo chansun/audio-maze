@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 15;
+    let s = 60;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -501,6 +501,8 @@ $(document).ready(function () {
 
     document.getElementById("state2").addEventListener("touchmove",function(ev) {
         // Cache the client X/Y coordinates
+
+        ev.preventDefault();
 
         synth.triggerAttackRelease("C4", "10n");
 
