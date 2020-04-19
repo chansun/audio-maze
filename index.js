@@ -221,7 +221,7 @@ function touch_motion(ev) {
     ev.preventDefault();
 
     // test
-    synth.triggerAttackRelease("C4", "100n");
+    //synth.triggerAttackRelease("C4", "100n");
 
     let coor;
     let index_temp;
@@ -470,13 +470,15 @@ $(document).ready(function () {
 
 
     // Only update, to see if synth never works on mobile. (But it should, once user interaction is received.)
+    // no need anymore. Tone.js doesnt' work on mobile browse.r 
+    /*
     document.getElementById("#state1").addEventListener("touchstart",  async () => {
         await Tone.start();
         console.log('audio is ready');
         synth = new Tone.Synth().toMaster();
         synth.triggerAttackRelease("C4", "100n");
     }, { passive: false });
-
+    */
 
 
     
