@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 19;
+    let s = 14;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -501,7 +501,7 @@ $(document).ready(function () {
         //let temp = getTouchPos(e);
         //console.log(temp);
         //console.log("===========");
-        synth.triggerAttackRelease("C4", "10n");
+        //synth.triggerAttackRelease("C4", "10n");
         speechSynthesis.speak(voice_make("Test"));
     });
 
@@ -511,7 +511,7 @@ $(document).ready(function () {
         //let temp = getTouchPos(e);
         //console.log(temp);
         //console.log("===========");
-        synth.triggerAttackRelease("C4", "10n");
+        //synth.triggerAttackRelease("C4", "10n");
         speechSynthesis.speak(voice_make("Test"));    
     });
     
