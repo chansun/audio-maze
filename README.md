@@ -7,7 +7,8 @@
 ## Screenshots
 <div>
 <img src="asset/start.png" width="45%"></img>
-<img src="asset/main.png" width="45%"></img>
+<img src="asset/play.png" width="45%"></img>
+<img src="asset/retry.png" width="45%"></img>
 </div>
 
 ## Technologies used
