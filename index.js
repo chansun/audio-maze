@@ -1,28 +1,12 @@
+let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font, level, state, response, timer_loop, game_on, all_clear, audio, playlist, synth, note_th, notes;
 
-
-
-function voice_make(sentence) {
-    const voice = new SpeechSynthesisUtterance(sentence);
-    voice.pitch = 0.8;
-    voice.volume = 1.0;
-    voice.rate = 1.0;
-    return voice;
-}
-
-
-var audio = new Audio();
+audio = new Audio();
 audio.loop = true;
-
-let playlist = {
+playlist = {
     "outro": './asset/outro.mp3', 
 };
-
-
-let synth;
-
-let note_th = 4;
-
-let notes = {
+note_th = 4;
+notes = {
     0: "C",
     1: "D",
     2: "E",
@@ -31,24 +15,43 @@ let notes = {
     5: "A",
     6: "B"
 };
-
-
-let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font, level, state, response, timer_loop, game_on, all_clear;
 all_clear = false;
+game_on = false;
+level = 1;
+max_level = 15;
+index = 0;
+grid = 5; // Board = 5 by 5
+board = board_generate(grid);
+maze = { // [y, x]
+    1: [[0,0],[0,1],[0,2]],
+    2: [[1,0],[1,1],[1,2],[1,3],[1,4]],
+    3: [[1,0],[2,0],[3,0]],
+    4: [[0,1],[1,1],[2,1],[3,1],[4,1]],
+    5: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[2,4],[3,4],[4,4]],
+    6: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
+    7: [[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4]],
+    8: [[4,4],[3,4],[2,4],[1,4],[0,4],[0,3],[0,2]],
+    9: [[0,0],[0,1],[0,2],[1,2],[2,2],[3,2],[4,2],[4,3],[4,4]],
+    10: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4],[1,4],[0,4]],
+    11: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[2,4],[2,3],[2,2],[2,1],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
+    12: [[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3],[3,4],[4,4]],
+    13: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[1,3],[1,2],[1,1],[1,0],[2,0],[2,1],[2,2],[2,3],[2,4],[3,4],[3,3],[3,2],[3,1],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
+    14: [[2,2],[2,3],[1,3],[1,2],[1,1],[2,1],[3,1],[3,2],[3,3],[3,4],[2,4],[1,4],[0,4],[0,3],[0,2],[0,1],[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
+    15: [[0,0],[0,1],[1,1],[1,0],[2,0],[2,1],[2,2],[1,2],[0,2],[0,3],[1,3],[2,3],[3,3],[3,2],[3,1],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4],[1,4],[0,4]]
+};
+empty_color = "rgb(255, 255, 255)"; // white
+filled_color = "rgb(255, 0, 0)"; // red
+text_color = "rgb(255, 100, 100)"
+text_font = "bold 25px sans-serif";
 
 function timer_begin() {
-    let s = 20;
+    let s = 60;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
-
         if (ms == 0) {
             if (s <= 0) { // the timer expired, so move to the "retry" state
-
-      
                 audio.play();
-
-
                 game_on = false;
                 clearInterval(timer_loop);
                 response = update_state("state1");
@@ -90,38 +93,16 @@ function timer_begin() {
         else if (s_temp == 5 && ms_temp == 00) {
             speechSynthesis.speak(voice_make(`${5} seconds left`));
         }
-
-        
     }, 10);
 }
 
-game_on = false;
-level = 1;
-max_level = 15;
-index = 0;
-grid = 5; // Board = 5 by 5
-board = board_generate(grid);
-maze = { // [y, x]
-    1: [[0,0],[0,1],[0,2]],
-    2: [[1,0],[1,1],[1,2],[1,3],[1,4]],
-    3: [[1,0],[2,0],[3,0]],
-    4: [[0,1],[1,1],[2,1],[3,1],[4,1]],
-    5: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[2,4],[3,4],[4,4]],
-    6: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
-    7: [[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4]],
-    8: [[4,4],[3,4],[2,4],[1,4],[0,4],[0,3],[0,2]],
-    9: [[0,0],[0,1],[0,2],[1,2],[2,2],[3,2],[4,2],[4,3],[4,4]],
-    10: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4],[1,4],[0,4]],
-    11: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[2,4],[2,3],[2,2],[2,1],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
-    12: [[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3],[3,4],[4,4]],
-    13: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,4],[1,3],[1,2],[1,1],[1,0],[2,0],[2,1],[2,2],[2,3],[2,4],[3,4],[3,3],[3,2],[3,1],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
-    14: [[2,2],[2,3],[1,3],[1,2],[1,1],[2,1],[3,1],[3,2],[3,3],[3,4],[2,4],[1,4],[0,4],[0,3],[0,2],[0,1],[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]],
-    15: [[0,0],[0,1],[1,1],[1,0],[2,0],[2,1],[2,2],[1,2],[0,2],[0,3],[1,3],[2,3],[3,3],[3,2],[3,1],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[3,4],[2,4],[1,4],[0,4]]
-};
-empty_color = "rgb(255, 255, 255)"; // white
-filled_color = "rgb(255, 0, 0)"; // red
-text_color = "rgb(255, 100, 100)"
-text_font = "bold 25px sans-serif";
+function voice_make(sentence) {
+    const voice = new SpeechSynthesisUtterance(sentence);
+    voice.pitch = 0.8;
+    voice.volume = 1.0;
+    voice.rate = 1.0;
+    return voice;
+}
 
 function board_generate(grid) {
     let board = [];
@@ -194,11 +175,8 @@ function note_th_update() {
 function tracker(coor, maze, index, canvas, grid, board) {
     if ((coor[0] >= maze[level][index][0]*(canvas.height/grid) && coor[0] < ((maze[level][index][0])+1)*(canvas.height/grid)) && (coor[1] >= maze[level][index][1]*(canvas.width/grid) && coor[1] < ((maze[level][index][1])+1)*(canvas.width/grid))) {
         board[maze[level][index][0]][maze[level][index][1]] = 1;
-
-        // test
         //note_th_update();
         //synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
-
         index = index + 1;
         if (maze[level].length == index) {
             console.log("clear!!");
@@ -215,155 +193,130 @@ function tracker(coor, maze, index, canvas, grid, board) {
     }
 }
 
-
-
 function touch_motion(ev) {
     ev.preventDefault();
-
-    // test
-    //synth.triggerAttackRelease("C4", "100n");
-
     let coor;
     let index_temp;
-        if (game_on) {
-            coor = getTouchPos(ev); // coor = [y, x]
-            //speechSynthesis.speak(voice_make("start"));
-            //console.log(`coor: ${coor}`);
-            index_temp = tracker(coor, maze, index, canvas, grid, board);
-            if (index_temp > index) { // Correct Path
-                if (maze[level].length == index_temp) { // Cleared the current level;
-                    console.log("clear!!");
-                    if (level == max_level) { // the current level is the last level, so move to the "retry" state
-
-                        audio.play();
-
-                        all_clear = true;
-                        game_on = false;
-                        clearInterval(timer_loop);
-                        response = update_state("state1");
-                        response.then(function(result) {
-                            console.log(result);
-                            index = 0;
-                            level = 1
-                            $("#level").html(level);
-                            board = board_generate(grid);
-                            update(ctx, board, grid, empty_color, filled_color);
-                        });
-                    }
-                    else { // move to the next level
-                        game_on = false;
-                        clearInterval(timer_loop);
-                        response = update_state("state2");
-                        response.then(function(result){
-                            console.log(result);
-                            index = 0;
-                            level = level + 1
-                            $("#level").html(level);
-                            board = board_generate(grid);
-                            update(ctx, board, grid, empty_color, filled_color);
-                            game_on = true;
-                            timer_begin();
-                        })
-                    }
+    if (game_on) {
+        coor = getTouchPos(ev); // coor = [y, x]
+        //console.log(`coor: ${coor}`);
+        index_temp = tracker(coor, maze, index, canvas, grid, board);
+        if (index_temp > index) { // Correct Path
+            if (maze[level].length == index_temp) { // Cleared the current level;
+                console.log("clear!!");
+                if (level == max_level) { // the current level is the last level, so move to the "retry" state
+                    audio.play();
+                    all_clear = true;
+                    game_on = false;
+                    clearInterval(timer_loop);
+                    response = update_state("state1");
+                    response.then(function(result) {
+                        console.log(result);
+                        index = 0;
+                        level = 1
+                        $("#level").html(level);
+                        board = board_generate(grid);
+                        update(ctx, board, grid, empty_color, filled_color);
+                    });
                 }
-                update(ctx, board, grid, empty_color, filled_color);
-                // 이 index는 tracker에서 index가 없데이트 되지 않기대문에 여기에 넣은거임.
-                index = index + 1; // index를 다음단계로 넘겨야함. 그래야 메이즈의 다음 path를 찾을수 있음.
+                else { // move to the next level
+                    game_on = false;
+                    clearInterval(timer_loop);
+                    response = update_state("state2");
+                    response.then(function(result){
+                        console.log(result);
+                        index = 0;
+                        level = level + 1
+                        $("#level").html(level);
+                        board = board_generate(grid);
+                        update(ctx, board, grid, empty_color, filled_color);
+                        game_on = true;
+                        timer_begin();
+                    });
+                }
             }
-            // Stayed on the same position, nothing happened
-            else if (index_temp == index) {
-                update(ctx, board, grid, empty_color, filled_color);
-            }
-            // Wrong path, reset the grid
-            else {
-                // console.log("reset");
-                board = board_generate(grid);
-                update(ctx, board, grid, empty_color, filled_color);
-                index = 0;
-            }
-            tracker(coor, maze, index, canvas, grid, board);
-            update(ctx, board, grid, empty_color, filled_color); 
-        };
-    }
-
-    function mouse_motion(ev) {
-        let coor;
-        let index_temp;
-            if (game_on) {
-                coor = getMousePos(ev); // coor = [y, x]
-                //speechSynthesis.speak(voice_make("start"));
-                //console.log(`coor: ${coor}`);
-                index_temp = tracker(coor, maze, index, canvas, grid, board);
-                if (index_temp > index) { // Correct Path
-                    note_th_update();
-                    synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
-                    if (maze[level].length == index_temp) { // Cleared the current level;
-                        console.log("clear!!");
-                        if (level == max_level) { // the current level is the last level, so move to the "retry" state
-    
-                            audio.play();
-    
-                            all_clear = true;
-                            game_on = false;
-                            clearInterval(timer_loop);
-                            response = update_state("state1");
-                            response.then(function(result) {
-                                console.log(result);
-                                index = 0;
-                                level = 1
-                                $("#level").html(level);
-                                board = board_generate(grid);
-                                update(ctx, board, grid, empty_color, filled_color);
-                            });
-                        }
-                        else { // move to the next level
-                            game_on = false;
-                            clearInterval(timer_loop);
-                            response = update_state("state2");
-                            response.then(function(result){
-                                console.log(result);
-                                index = 0;
-                                level = level + 1
-                                $("#level").html(level);
-                                board = board_generate(grid);
-                                update(ctx, board, grid, empty_color, filled_color);
-                                game_on = true;
-                                timer_begin();
-                            })
-                        }
-                    }
-                    update(ctx, board, grid, empty_color, filled_color);
-                    // 이 index는 tracker에서 index가 없데이트 되지 않기대문에 여기에 넣은거임.
-                    index = index + 1; // index를 다음단계로 넘겨야함. 그래야 메이즈의 다음 path를 찾을수 있음.
-                }
-                // Stayed on the same position, nothing happened
-                else if (index_temp == index) {
-                    update(ctx, board, grid, empty_color, filled_color);
-                }
-                // Wrong path, reset the grid
-                else {
-                    // console.log("reset");
-                    board = board_generate(grid);
-                    update(ctx, board, grid, empty_color, filled_color);
-                    index = 0;
-                }
-                tracker(coor, maze, index, canvas, grid, board);
-                update(ctx, board, grid, empty_color, filled_color); 
-            };
+            update(ctx, board, grid, empty_color, filled_color);
+            index = index + 1; // move to the next index to find the next step of the maze.
         }
+        // Stayed on the same position, nothing happened
+        else if (index_temp == index) {
+            update(ctx, board, grid, empty_color, filled_color);
+        }
+        // Wrong path, reset the grid
+        else {
+            // console.log("reset");
+            board = board_generate(grid);
+            update(ctx, board, grid, empty_color, filled_color);
+            index = 0;
+        }
+        tracker(coor, maze, index, canvas, grid, board);
+        update(ctx, board, grid, empty_color, filled_color); 
+    }
+}
 
+function mouse_motion(ev) {
+    let coor;
+    let index_temp;
+    if (game_on) {
+        coor = getMousePos(ev); // coor = [y, x]
+        //console.log(`coor: ${coor}`);
+        index_temp = tracker(coor, maze, index, canvas, grid, board);
+        if (index_temp > index) { // Correct Path
+            note_th_update();
+            synth.triggerAttackRelease(`${notes[index%7]}${note_th}`, "100n");
+            if (maze[level].length == index_temp) { // Cleared the current level;
+                console.log("clear!!");
+                if (level == max_level) { // the current level is the last level, so move to the "retry" state
+                    audio.play();
+                    all_clear = true;
+                    game_on = false;
+                    clearInterval(timer_loop);
+                    response = update_state("state1");
+                    response.then(function(result) {
+                        console.log(result);
+                        index = 0;
+                        level = 1
+                        $("#level").html(level);
+                        board = board_generate(grid);
+                        update(ctx, board, grid, empty_color, filled_color);
+                    });
+                }
+                else { // move to the next level
+                    game_on = false;
+                    clearInterval(timer_loop);
+                    response = update_state("state2");
+                    response.then(function(result){
+                        console.log(result);
+                        index = 0;
+                        level = level + 1
+                        $("#level").html(level);
+                        board = board_generate(grid);
+                        update(ctx, board, grid, empty_color, filled_color);
+                        game_on = true;
+                        timer_begin();
+                    });
+                }
+            }
+            update(ctx, board, grid, empty_color, filled_color);
+            index = index + 1; // move to the next index to find the next step of the maze.
+        }
+        // Stayed on the same position, nothing happened
+        else if (index_temp == index) {
+            update(ctx, board, grid, empty_color, filled_color);
+        }
+        // Wrong path, reset the grid
+        else {
+            // console.log("reset");
+            board = board_generate(grid);
+            update(ctx, board, grid, empty_color, filled_color);
+            index = 0;
+        }
+        tracker(coor, maze, index, canvas, grid, board);
+        update(ctx, board, grid, empty_color, filled_color); 
+    }
+}
 
-
-
-
-
-
-
-
-
-// function mouseHandler(canvas, ctx, maze, index, board, grid, empty_color, filled_color) {
 function mouseHandler() {
-    
     canvas.addEventListener("touchstart", touch_motion, { passive: false });
     canvas.addEventListener("touchmove", touch_motion, { passive: false });
     canvas.addEventListener("touchend", touch_motion, { passive: false });
@@ -384,20 +337,16 @@ function draw_start_end() {
     drawText("END", ctx, (maze[level][maze[level].length-1][1]*100)+25, (maze[level][maze[level].length-1][0]*100)+60, empty_color, text_font);
 }
 
-
 async function update_state(keyword) {
     return new Promise(function(resolve) {
         if (keyword == "init") { // initialize the state
             $("#state1").css({top: '-100px', position:'absolute'});
             setTimeout(function() {
                 speechSynthesis.speak(voice_make("Game start"));
-
                 setTimeout(function() {   
                      speechSynthesis.speak(voice_make(`Level ${level}`));
                  }, 1000);
-
                 setTimeout(function() {         
-                    //speechSynthesis.speak(voice_make(`Level ${level}`));   
                     $("#state2").css("opacity", 0.5);
                     $("#state2").css("z-index", 2);
                     resolve("init Finished");
@@ -423,7 +372,7 @@ async function update_state(keyword) {
             }, 500);
         }
         else if (keyword == "state2") { // change current state to state2
-            console.log(level);
+            //console.log(level);
             speechSynthesis.speak(voice_make(`Level ${level} clear`));
             setTimeout(function() {
                 setTimeout(function() {
@@ -441,9 +390,7 @@ async function update_state(keyword) {
     });
 }
 
-
 $(document).ready(function () {
-
     canvas_init();
     update(ctx, board, grid, empty_color, filled_color);
     mouseHandler();
@@ -460,29 +407,9 @@ $(document).ready(function () {
             game_on = true;
         })
     });
-
-
     $("#state1").on("click", async () => {
         await Tone.start();
         console.log('audio is ready');
         synth = new Tone.Synth().toMaster();
     });
-
-
-    // Only update, to see if synth never works on mobile. (But it should, once user interaction is received.)
-    // no need anymore. Tone.js doesnt' work on mobile browse.r 
-    /*
-    document.getElementById("#state1").addEventListener("touchstart",  async () => {
-        await Tone.start();
-        console.log('audio is ready');
-        synth = new Tone.Synth().toMaster();
-        synth.triggerAttackRelease("C4", "100n");
-    }, { passive: false });
-    */
-
-
-    
-    
-    
-
 });
