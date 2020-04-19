@@ -37,7 +37,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 20;
+    let s = 90;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
