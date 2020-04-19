@@ -132,7 +132,7 @@ let canvas, ctx, grid, board, maze, index, empty_color, filled_color, text_font,
 all_clear = false;
 
 function timer_begin() {
-    let s = 18;
+    let s = 20;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
@@ -319,30 +319,13 @@ function tracker(coor, maze, index, canvas, grid, board) {
     }
 }
 
-// function mouseHandler(canvas, ctx, maze, index, board, grid, empty_color, filled_color) {
-function mouseHandler() {
-    let coor;
-    let index_temp;
-
-    canvas.addEventListener("touchstart", function(ev) {
-        ev.preventDefault();
-        let temp = getTouchPos(ev);
-        console.log(`temp: ${temp}`);
-        speechSynthesis.speak(voice_make("start"));
-    });
-    canvas.addEventListener("touchmove", function(ev) {
-        ev.preventDefault();
-        let temp = getTouchPos(ev);
-        console.log(`temp: ${temp}`);
-        speechSynthesis.speak(voice_make("move"));
-    });
 
 
-    
-    canvas.addEventListener("mousemove", function(ev) {
+function touch_motion(ev) {
     //$("#root").on("mousemove touchstart", function(ev) {
         if (game_on) {
-            coor = getMousePos(ev); // coor = [y, x]
+            coor = getTouchPos(ev); // coor = [y, x]
+            //speechSynthesis.speak(voice_make("start"));
             console.log(`coor: ${coor}`);
             index_temp = tracker(coor, maze, index, canvas, grid, board);
             if (index_temp > index) { // Correct Path
@@ -407,7 +390,112 @@ function mouseHandler() {
             tracker(coor, maze, index, canvas, grid, board);
             update(ctx, board, grid, empty_color, filled_color); 
         };
+    }
+
+
+
+
+
+
+
+
+
+
+// function mouseHandler(canvas, ctx, maze, index, board, grid, empty_color, filled_color) {
+function mouseHandler() {
+    let coor;
+    let index_temp;
+
+    canvas.addEventListener("touchstart", touch_motion);
+    canvas.addEventListener("touchmove", touch_motion);
+    canvas.addEventListener("touchend", touch_motion);
+
+    /*
+    canvas.addEventListener("touchstart", function(ev) {
+        ev.preventDefault();
+        let temp = getTouchPos(ev);
+        console.log(`temp: ${temp}`);
+        speechSynthesis.speak(voice_make("start"));
     });
+    canvas.addEventListener("touchmove", function(ev) {
+        ev.preventDefault();
+        let temp = getTouchPos(ev);
+        console.log(`temp: ${temp}`);
+        speechSynthesis.speak(voice_make("move"));
+    });
+    */
+
+
+    /*
+    canvas.addEventListener("mousemove", function(ev) {
+        if (game_on) {
+            coor = getMousePos(ev); // coor = [y, x]
+            console.log(`coor: ${coor}`);
+            index_temp = tracker(coor, maze, index, canvas, grid, board);
+            if (index_temp > index) { // Correct Path
+                if (maze[level].length == index_temp) { // Cleared the current level;
+                    console.log("clear!!");
+                    if (level == max_level) { // the current level is the last level, so move to the "retry" state
+
+                        // version 1
+                        
+                        //audio.src = playlist["outro"];
+                        //audio.volume = 0.7;
+                        //audio.play();
+                        
+
+                        // version 2
+                        audio.play();
+
+                        all_clear = true;
+                        game_on = false;
+                        clearInterval(timer_loop);
+                        response = update_state("state1");
+                        response.then(function(result) {
+                            console.log(result);
+                            index = 0;
+                            level = 1
+                            $("#level").html(level);
+                            board = board_generate(grid);
+                            update(ctx, board, grid, empty_color, filled_color);
+                        });
+                    }
+                    else { // move to the next level
+                        game_on = false;
+                        clearInterval(timer_loop);
+                        response = update_state("state2");
+                        response.then(function(result){
+                            console.log(result);
+                            index = 0;
+                            level = level + 1
+                            $("#level").html(level);
+                            board = board_generate(grid);
+                            update(ctx, board, grid, empty_color, filled_color);
+                            game_on = true;
+                            timer_begin();
+                        })
+                    }
+                }
+                update(ctx, board, grid, empty_color, filled_color);
+                // 이 index는 tracker에서 index가 없데이트 되지 않기대문에 여기에 넣은거임.
+                index = index + 1; // index를 다음단계로 넘겨야함. 그래야 메이즈의 다음 path를 찾을수 있음.
+            }
+            // Stayed on the same position, nothing happened
+            else if (index_temp == index) {
+                update(ctx, board, grid, empty_color, filled_color);
+            }
+            // Wrong path, reset the grid
+            else {
+                // console.log("reset");
+                board = board_generate(grid);
+                update(ctx, board, grid, empty_color, filled_color);
+                index = 0;
+            }
+            tracker(coor, maze, index, canvas, grid, board);
+            update(ctx, board, grid, empty_color, filled_color); 
+        };
+    });
+    */
     
 };
 
