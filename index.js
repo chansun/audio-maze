@@ -45,7 +45,7 @@ text_color = "rgb(255, 100, 100)"
 text_font = "bold 25px sans-serif";
 
 function timer_begin() {
-    let s = 60;
+    let s = 30;
     let ms = 0;
     clearInterval(timer_loop);
     timer_loop = setInterval(function() {
