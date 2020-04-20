@@ -13,7 +13,7 @@
 
 ## Technologies used
   * Language: HTML, CSS, and JavaScript
-  * JavaScript Library: jQuery, Tone.js
+  * JavaScript Library: jQuery and Tone.js
 
 ## Links
   * Game published at - https://chansun.github.io/audio_maze/ (Chrome is recommended)
