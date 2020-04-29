@@ -16,5 +16,5 @@
   * JavaScript Library: jQuery and Tone.js
 
 ## Links
-  * Game published at - https://chansun.github.io/audio_maze/ (Chrome is recommended)
+  * Game published at - https://chansun.github.io/audio-maze/ (Chrome is recommended)
   * More information about Maze Day - https://cs.unc.edu/outreach/maze-day/
