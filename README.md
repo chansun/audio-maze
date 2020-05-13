@@ -17,7 +17,7 @@
   * JavaScript Library: jQuery and Tone.js
 
 ## Technical difficulty and how I overcame it
-  * to be filled ...
+  * to be filled ... 
 
 ## Links
   * Game published at - https://chansun.github.io/audio-maze/ (Chrome is recommended)

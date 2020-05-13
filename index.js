@@ -472,4 +472,4 @@ class Controller {
 $(document).ready(function () {
     const game = new Controller(new Model(), new View());
 });
-// Reference: https://www.taniarascia.com/javascript-mvc-todo-app/
+// Reference: https://www.taniarascia.com/javascript-mvc-todo-app/ 
