@@ -46,7 +46,7 @@ class Model {
             },
             bgm_on : false,
             delay : false,
-            s : "03", 
+            s : "30", 
             ms : "00",
             sentence : "Game Start",
             voice_on : false,
@@ -409,7 +409,7 @@ class Controller {
         }
     }
     timerBegin() {
-        this.model.sChange("03");
+        this.model.sChange("30");
         this.model.msChange("00");
         let s = parseInt(this.model.state["s"]);
         let ms = parseInt(this.model.state["ms"]);
@@ -468,25 +468,7 @@ class Controller {
     } */
 }
 
-
-function test(sentence) {
-    const voice = new SpeechSynthesisUtterance(sentence);
-    voice.pitch = 0.8;
-    voice.volume = 1.0;
-    voice.rate = 1.0;
-    speechSynthesis.speak(voice);
-}
-
 $(document).ready(function () {
     const game = new Controller(new Model(), new View());
-
-    let a = new Audio();
-    a.src = './asset/outro.mp3';
-    $('body').on("click", function() {
-        a.play();
-        // game.model.bgmInit();
-        // game.model.state["audio"].play();
-        // console.log(game.model.state["audio"]);
-    })
 });
 // Reference: https://www.taniarascia.com/javascript-mvc-todo-app/ 
