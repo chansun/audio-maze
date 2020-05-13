@@ -11,9 +11,13 @@
 <img src="asset/retry.png" width="45%"></img>
 </div>
 
-## Technologies used
+## Technologies
+  * Architecture: Model-View-Controller (MVC)
   * Language: HTML, CSS, and JavaScript
   * JavaScript Library: jQuery and Tone.js
+
+# Technical difficulty and how I overcame it
+  * to be filled ...
 
 ## Links
   * Game published at - https://chansun.github.io/audio-maze/ (Chrome is recommended)

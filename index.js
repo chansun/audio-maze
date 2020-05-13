@@ -4,7 +4,7 @@ class Model {
             page : "menu",
             word : "start", 
             level : 1, 
-            max_level : 1,
+            max_level : 15,
             index: 0,
             board : this.boardGenerate(5),
             empty_color : "rgb(255, 255, 255)",
@@ -46,7 +46,7 @@ class Model {
             },
             bgm_on : false,
             delay : false,
-            s : "05", 
+            s : "30", 
             ms : "00",
             sentence : "Game Start",
             voice_on : false,
@@ -410,7 +410,7 @@ class Controller {
         }
     }
     timerBegin() {
-        this.model.sChange("05");
+        this.model.sChange("30");
         this.model.msChange("00");
         let s = parseInt(this.model.state["s"]);
         let ms = parseInt(this.model.state["ms"]);
