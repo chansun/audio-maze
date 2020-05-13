@@ -2,7 +2,7 @@ class Model {
     constructor() {
         this.state = {
             page : "menu",
-            word : "start", 
+            word : "starter", 
             level : 1, 
             max_level : 15,
             index: 0,
@@ -46,7 +46,7 @@ class Model {
             },
             bgm_on : false,
             delay : false,
-            s : "30", 
+            s : "03", 
             ms : "00",
             sentence : "Game Start",
             voice_on : false,
@@ -110,6 +110,7 @@ class Model {
     bgmInit() {
         this.state["audio"].src = this.state["play_list"]["outro"];
         this.state["audio"].volume = 0.7;
+        this.state["audio"].play();
         this.state["audio"].pause();
         this.change(this.state);
     }
@@ -167,8 +168,9 @@ class View {
                 this.state2.css("z-index", 0); 
             } else {
                 if (state["bgm_on"]) {
-                    console.log("audio Played");
+                    test("test1");
                     state["audio"].play();
+                    test("test2");
                 }
                 this.state1.css({top: '50%', position:'absolute'});
                 this.state1.html(state["word"]);
@@ -238,9 +240,7 @@ class View {
     // Binders
     bindClick(handler) {
         this.state1.on("click", async () => {
-            test("test click 1");
             //await Tone.start();
-            test("test click 2");
             handler();
         });
     }
@@ -281,7 +281,6 @@ class Controller {
         this.view.renderUI(state)
     }
     gameStart() {
-        test("test click 3");
         let this_temp = this;
         let model_temp = this.model;
         model_temp.delayChange(true);
@@ -294,7 +293,6 @@ class Controller {
         this.model.synthInit();
         this.model.bgmInit();
         this.model.bgmChange(false);
-        test("test click 4");
     }
     handleMouse(coor) {
         let maze = this.model["state"]["maze"];
@@ -402,19 +400,19 @@ class Controller {
         if (maze[level].length == index) {
             // Game clear
             if (this.model.state["level"] == this.model.state["max_level"]) {
-                console.log("Game clear");
+                //console.log("Game clear");
                 this.model.loseChange(false);
                 this.gameEnd();
             }
             // Level clear
             else {
-                console.log("Level clear");
+                //console.log("Level clear");
                 this.levelUp();
             }
         }
     }
     timerBegin() {
-        this.model.sChange("30");
+        this.model.sChange("03");
         this.model.msChange("00");
         let s = parseInt(this.model.state["s"]);
         let ms = parseInt(this.model.state["ms"]);
