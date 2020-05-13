@@ -238,6 +238,7 @@ class View {
     // Binders
     bindClick(handler) {
         this.state1.on("click", async () => {
+            test("test click");
             await Tone.start();
             handler();
         });
@@ -467,6 +468,15 @@ class Controller {
             this.model.callback();
         }
     } */
+}
+
+
+function test(sentence) {
+    const voice = new SpeechSynthesisUtterance(sentence);
+    voice.pitch = 0.8;
+    voice.volume = 1.0;
+    voice.rate = 1.0;
+    speechSynthesis.speak(voice);
 }
 
 $(document).ready(function () {
