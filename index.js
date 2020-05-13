@@ -109,6 +109,7 @@ class Model {
     }
     bgmInit() {
         this.state["audio"].src = this.state["play_list"]["outro"];
+        this.state["audio"].loop = true;
         this.state["audio"].volume = 0.7;
         this.state["audio"].pause();
         this.change(this.state);
