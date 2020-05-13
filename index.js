@@ -2,7 +2,7 @@ class Model {
     constructor() {
         this.state = {
             page : "menu",
-            word : "starter", 
+            word : "start", 
             level : 1, 
             max_level : 15,
             index: 0,
