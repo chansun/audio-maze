@@ -2,7 +2,7 @@ class Model {
     constructor() {
         this.state = {
             page : "menu",
-            word : "starty", 
+            word : "start", 
             level : 1, 
             max_level : 15,
             index: 0,
@@ -110,7 +110,6 @@ class Model {
     bgmInit() {
         this.state["audio"].src = this.state["play_list"]["outro"];
         this.state["audio"].volume = 0.7;
-        this.state["audio"].play();
         this.state["audio"].pause();
         this.change(this.state);
     }
@@ -168,9 +167,7 @@ class View {
                 this.state2.css("z-index", 0); 
             } else {
                 if (state["bgm_on"]) {
-                    test("test1");
                     state["audio"].play();
-                    test("test2");
                 }
                 this.state1.css({top: '50%', position:'absolute'});
                 this.state1.html(state["word"]);
@@ -482,5 +479,14 @@ function test(sentence) {
 
 $(document).ready(function () {
     const game = new Controller(new Model(), new View());
+
+    let a = new Audio();
+    a.src = './asset/outro.mp3';
+    $('body').on("click", function() {
+        a.play();
+        // game.model.bgmInit();
+        // game.model.state["audio"].play();
+        // console.log(game.model.state["audio"]);
+    })
 });
 // Reference: https://www.taniarascia.com/javascript-mvc-todo-app/ 
