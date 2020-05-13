@@ -2,7 +2,7 @@ class Model {
     constructor() {
         this.state = {
             page : "menu",
-            word : "start", 
+            word : "starter", 
             level : 1, 
             max_level : 15,
             index: 0,
@@ -238,8 +238,9 @@ class View {
     // Binders
     bindClick(handler) {
         this.state1.on("click", async () => {
-            test("test click");
+            test("test click 1");
             await Tone.start();
+            test("test click 2");
             handler();
         });
     }
@@ -280,6 +281,7 @@ class Controller {
         this.view.renderUI(state)
     }
     gameStart() {
+        test("test click 3");
         let this_temp = this;
         let model_temp = this.model;
         model_temp.delayChange(true);
@@ -292,6 +294,7 @@ class Controller {
         this.model.synthInit();
         this.model.bgmInit();
         this.model.bgmChange(false);
+        test("test click 4");
     }
     handleMouse(coor) {
         let maze = this.model["state"]["maze"];
