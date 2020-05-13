@@ -2,7 +2,7 @@
   * Escape the maze by moving your mouse around and hearing the increaisng notes!
 
 ## Introduction
-  * Audio Maze is an audio web game designed and developed for the K-12 students with visual impairments in North Carolina. In this game, the user has to escape the maze by moving the mouse around and hearing the corresponding sound; the maze has 15 levels in total. The game is going be used for Maze Day, an annual event hosted by the Computer Science department of UNC-Chapl Hill.
+  * Audio Maze is an audio web game designed and developed for the K-12 students with visual impairments in North Carolina. In this game, the user has to escape the maze by moving the mouse around and hearing the corresponding sound; the maze has 15 levels in total. The game is used for Maze Day, an annual event hosted by the Computer Science department of UNC-Chapl Hill.
 
 ## Screenshots
 <div>
