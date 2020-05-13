@@ -239,7 +239,7 @@ class View {
     bindClick(handler) {
         this.state1.on("click", async () => {
             test("test click 1");
-            await Tone.start();
+            //await Tone.start();
             test("test click 2");
             handler();
         });
