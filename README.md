@@ -16,7 +16,7 @@
   * Language: HTML, CSS, and JavaScript
   * JavaScript Library: jQuery and Tone.js
 
-# Technical difficulty and how I overcame it
+## Technical difficulty and how I overcame it
   * to be filled ...
 
 ## Links
